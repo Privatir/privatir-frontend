@@ -14,7 +14,7 @@ app.prepare()
             return handle(req, res)
         })
 
-        server.listen(port, "127.0.0.1", (err) => {
+        server.listen(port, "0.0.0.0", (err) => {
             if (err) throw err
             console.log('> Ready on http://localhost:' + port)
         })
