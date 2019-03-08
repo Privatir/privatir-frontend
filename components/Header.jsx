@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
+import { propTypes } from 'react-typography/dist/GoogleFont';
+import MediaQuery from 'react-responsive';
 
 const sizes = {
     desktop: 992,
@@ -25,7 +27,7 @@ const StyledAnchor = styled.a`
 
 const Logo = styled.div`
         display: flex;
-        margin-left: 2rem;
+        margin-left: 1rem;
         align-items: center;
     `
 const PrimaryNav = styled.div`
@@ -47,16 +49,30 @@ const CollapsedNav = styled.div`
                         `}
                         `
 
+const IconContainer = styled.object`
+                            display: flex;
+                            padding: 0.5rem;
+                        `
+
 const Header = () => (
 
     <div style={{ display: `flex`, justifyContent: `space-between`, alignItems: `center` }}>
         <Logo>
-            <object type="image/svg+xml"
-                data="https://s3.amazonaws.com/privatir.com/Privatir-logo.svg"
-                className="logo"
-                width="200"
-                height="100">
-            </object>
+            <MediaQuery query="(max-width: 576px)">
+                <IconContainer type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg"
+                    className=""
+                    width="50"
+                    height="50">
+                </IconContainer>
+            </MediaQuery>
+            <MediaQuery query="(min-width: 577px)">
+                <IconContainer type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/Privatir-logo.svg"
+                    className=""
+                    width="200"
+                    height="200">
+                </IconContainer>
+            </MediaQuery>
+
         </Logo>
         <PrimaryNav>
             <Link href="/">
@@ -73,10 +89,10 @@ const Header = () => (
             </Link>
         </PrimaryNav>
         <CollapsedNav >
-            <i class="fas fa-bars" />
+            <i className="fas fa-bars" />
         </CollapsedNav>
 
-    </div>
+    </div >
 
 )
 
