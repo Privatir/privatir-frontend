@@ -1,29 +1,17 @@
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
-import { propTypes } from 'react-typography/dist/GoogleFont';
 import MediaQuery from 'react-responsive';
+import { withRouter } from "next/router";
+import { Children } from "react";
 
-const sizes = {
-    desktop: 992,
-    tablet: 768,
-    phone: 576,
-}
 
-// Iterate through the sizes and create a media template
-const media = Object.keys(sizes).reduce((acc, label) => {
-    acc[label] = (...args) => css`
-    @media screen and (max-width: ${sizes[label] / 16}em) {
-      ${css(...args)}
-    }
-  `
-    return acc
-}, {})
 
 const StyledAnchor = styled.a`
-    text-decoration: none;
     text-transform: uppercase;
     color: #4D2C91;
-    `
+    ${({ active }) => active && `
+        color: #7E57C2 ;
+    `}`
 
 const Logo = styled.div`
         display: flex;
@@ -31,22 +19,14 @@ const Logo = styled.div`
         align-items: center;
     `
 const PrimaryNav = styled.div`
-                        
                         display: flex;
                         margin-right: 2rem;
                         align-items: center;
                         justify-content: space-around;
                         width: 500px;
-                        ${media.tablet`
-                            display: none;
-                         `}
                             `
 const CollapsedNav = styled.div` 
-                        display: none; 
-                        ${media.tablet`
-                            display: flex;
-                            margin-right: 15px;
-                        `}
+                        margin-right: 2rem;
                         `
 
 const IconContainer = styled.object`
@@ -54,44 +34,59 @@ const IconContainer = styled.object`
                             padding: 0.5rem;
                         `
 
+const ActiveLink = withRouter(({ router, children, ...props }) => (
+    <Link {...props}>
+        {React.cloneElement(Children.only(children), {
+            active: router.pathname === props.href ? true : false
+        })}
+    </Link>
+));
+
 const Header = () => (
 
     <div style={{ display: `flex`, justifyContent: `space-between`, alignItems: `center` }}>
-        <Logo>
-            <MediaQuery query="(max-width: 576px)">
+        {/** MOBILE */}
+        <MediaQuery query="(max-width: 576px)">
+            <Logo>
                 <IconContainer type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg"
                     className=""
                     width="50"
                     height="50">
                 </IconContainer>
-            </MediaQuery>
-            <MediaQuery query="(min-width: 577px)">
+            </Logo>
+        </MediaQuery>
+        {/** > TABLET */}
+        <MediaQuery query="(min-width: 577px)">
+            <Logo>
                 <IconContainer type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/Privatir-logo.svg"
                     className=""
-                    width="200"
-                    height="200">
+                    width="200">
                 </IconContainer>
-            </MediaQuery>
-
-        </Logo>
-        <PrimaryNav>
-            <Link href="/">
-                <StyledAnchor>Home</StyledAnchor>
-            </Link>
-            <Link href="/about">
-                <StyledAnchor>About</StyledAnchor>
-            </Link>
-            <Link href="/contact">
-                <StyledAnchor>Contact</StyledAnchor>
-            </Link>
-            <Link href="/blog">
-                <StyledAnchor>Blog</StyledAnchor>
-            </Link>
-        </PrimaryNav>
-        <CollapsedNav >
-            <i className="fas fa-bars" />
-        </CollapsedNav>
-
+            </Logo >
+        </MediaQuery>
+        {/** MOBILE */}
+        < MediaQuery query="(max-width: 576px)" >
+            <CollapsedNav >
+                <i className="fas fa-bars" />
+            </CollapsedNav>
+        </MediaQuery >
+        {/** > TABLET */}
+        < MediaQuery query="(min-width: 577px)" >
+            <PrimaryNav>
+                <ActiveLink href="/">
+                    <StyledAnchor>Home</StyledAnchor>
+                </ActiveLink>
+                <ActiveLink href="/about">
+                    <StyledAnchor>About</StyledAnchor>
+                </ActiveLink>
+                <ActiveLink href="/contact">
+                    <StyledAnchor>Contact</StyledAnchor>
+                </ActiveLink>
+                <ActiveLink href="/blog">
+                    <StyledAnchor>Blog</StyledAnchor>
+                </ActiveLink>
+            </PrimaryNav>
+        </MediaQuery >
     </div >
 
 )

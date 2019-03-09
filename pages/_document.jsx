@@ -2,11 +2,30 @@ import Document, { Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
 // Typography styling
-import { TypographyStyle } from 'react-typography'
+import { GoogleFont, TypographyStyle } from 'react-typography'
 import Typography from 'typography'
-import irvingTheme from 'typography-theme-irving'
+// import irvingTheme from 'typography-theme-irving'
+import parnassusTheme from 'typography-theme-parnassus'
 
-const typography = new Typography(irvingTheme)
+
+parnassusTheme.overrideThemeStyles = ({ rhythm }, options) => ({
+    "a:link": {
+        color: "inherit",
+        textDecoration: "none"
+    },
+    "a:hover": {
+        color: "#7E57C2"
+    },
+    "a:focus": {
+        color: "#7E57C2"
+    },
+    "a:active": {
+        color: "#7E57C2"
+    }
+
+})
+
+const typography = new Typography(parnassusTheme)
 
 export default class MyDocument extends Document {
     static getInitialProps({ renderPage }) {
@@ -36,6 +55,7 @@ export default class MyDocument extends Document {
                         crossOrigin="anonymous">
                     </script>
                     <TypographyStyle typography={typography} />
+                    <GoogleFont typography={typography} />
                     {this.props.styleTags}
                 </Head>
                 <body>
