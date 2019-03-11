@@ -8,21 +8,15 @@ import Typography from 'typography'
 import parnassusTheme from 'typography-theme-parnassus'
 
 
-parnassusTheme.overrideThemeStyles = ({ rhythm }, options) => ({
-    "a:link": {
+parnassusTheme.overrideStyles = ({ rhythm }, options) => ({
+    "a": {
         color: "inherit",
         textDecoration: "none"
     },
     "a:hover": {
-        color: "#7E57C2"
+        color: "#7E57C2",
+        textDecoration: "none"
     },
-    "a:focus": {
-        color: "#7E57C2"
-    },
-    "a:active": {
-        color: "#7E57C2"
-    }
-
 })
 
 const typography = new Typography(parnassusTheme)

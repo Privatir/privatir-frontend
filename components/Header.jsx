@@ -4,19 +4,35 @@ import MediaQuery from 'react-responsive';
 import { withRouter } from "next/router";
 import { Children } from "react";
 
+const SignIn = styled.button`
+                background-color: #ffffff;
+                border: 1px solid #4D2C91;
+                border-radius: 2px;
+                color: #4D2C91;
+                &:hover {
+                    background-color: #4D2C91;
+                }
+                &:hover a {
+                    color:#FFF7F7;
+                }
 
+
+            `
 
 const StyledAnchor = styled.a`
     text-transform: uppercase;
     color: #4D2C91;
+    text-decoration: none;
     ${({ active }) => active && `
-        color: #7E57C2 ;
+        color: #7E57C2;
+        text-decoration: solid;
     `}`
 
 const Logo = styled.div`
         display: flex;
         margin-left: 1rem;
         align-items: center;
+        padding-left: 1rem;
     `
 const PrimaryNav = styled.div`
                         display: flex;
@@ -27,11 +43,6 @@ const PrimaryNav = styled.div`
                             `
 const CollapsedNav = styled.div` 
                         margin-right: 2rem;
-                        `
-
-const IconContainer = styled.object`
-                            display: flex;
-                            padding: 0.5rem;
                         `
 
 const ActiveLink = withRouter(({ router, children, ...props }) => (
@@ -48,22 +59,26 @@ const Header = () => (
         {/** MOBILE */}
         <MediaQuery query="(max-width: 576px)">
             <Logo>
-                <IconContainer type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg"
-                    className=""
+                <svg type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg"
                     width="50"
-                    height="50">
-                </IconContainer>
+                    height="50" style={{ padding: `5px` }}>
+                    <a href="/" >
+                        <image xlinkHref="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg" height="40" width="40" />
+                    </a>
+                </svg>
             </Logo>
         </MediaQuery>
         {/** > TABLET */}
         <MediaQuery query="(min-width: 577px)">
             <Logo>
-                <IconContainer type="image/svg+xml" data="https://s3.amazonaws.com/privatir.com/Privatir-logo.svg"
-                    className=""
-                    width="200">
-                </IconContainer>
+                <svg width="150" height="100"
+                    xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                    <a href="/">
+                        <image xlinkHref="https://s3.amazonaws.com/privatir.com/Privatir-logo.svg" height="100" width="150" />
+                    </a>
+                </svg>
             </Logo >
-        </MediaQuery>
+        </MediaQuery >
         {/** MOBILE */}
         < MediaQuery query="(max-width: 576px)" >
             <CollapsedNav >
@@ -85,6 +100,9 @@ const Header = () => (
                 <ActiveLink href="/blog">
                     <StyledAnchor>Blog</StyledAnchor>
                 </ActiveLink>
+                <SignIn>
+                    <a href="#">Sign In</a>
+                </SignIn>
             </PrimaryNav>
         </MediaQuery >
     </div >
